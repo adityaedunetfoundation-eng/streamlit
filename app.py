@@ -1,19 +1,19 @@
+
+import streamlit as st
 import pickle
-import pickle 
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
+import numpy as np 
+model =  pickle.load(open("iris_model.pkl", "rb"))
 
-from sklearn.ensemble import RandomForestClassifier
-iris= load_iris()
-x, y = iris.data, iris.target
-x_train,x_test,  y_train, y_test = train_test_split(x,y, test_size=0.2)
-model  = RandomForestClassifier(n_estimators=100, random_state=42)
-model.fit(x_train, y_train)
+st.title("Iris flower prediction")
 
-with  open("iris_model.pkl", "wb") as f:
-    pickle.dump(model, f)
+sepal_lenght = st.slider("sepal lenght ",4.0,8.0,5.0)
+sepal_width = st.slider("Sepal Width", 2.0, 4.5, 3.0)
+petal_length = st.slider("Petal Length", 1.0, 7.0, 4.0)
+petal_width = st.slider("Petal Width", 0.1, 2.5, 1.0)
 
-
-
- 
-print("Model trained and saved as iris_model.pkl")
+if st.button("predict"):
+    features= np.array([[sepal_lenght, sepal_width, petal_length, petal_width]])
+    prediction = model.predict(features)
+    species = ["Setosa", "Versicolor", "Virginica"]
+    st.success(f"Predicted Species: {species[prediction[0]]}")
+    
