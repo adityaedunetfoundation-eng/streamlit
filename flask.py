@@ -10,7 +10,7 @@ model = pickle.load(open("iris_model.pkl", "rb"))
 # Home page
 @app.route("/")
 def home():
-    return "Hello, welcome to the Iris Flower Prediction App! Use the /predict endpoint to make predictions."
+    return render_template("index.html")
 
 # Prediction
 @app.route("/predict", methods=["POST"])
