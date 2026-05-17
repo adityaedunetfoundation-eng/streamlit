@@ -4,17 +4,15 @@ import numpy as np
 
 app = Flask(__name__)
 
-# Load model
 model = pickle.load(open("iris_model.pkl", "rb"))
 
-# Home page
 @app.route("/")
 def home():
     return render_template("index.html")
 
-# Prediction
 @app.route("/predict", methods=["POST"])
 def predict():
+
     features = [
         float(request.form["sepal_length"]),
         float(request.form["sepal_width"]),
